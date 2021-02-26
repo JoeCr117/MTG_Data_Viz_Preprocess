@@ -1,4 +1,4 @@
-# Magic The Gathering Tournament Data Perprocessing Project
+# Magic The Gathering Tournament Data Preprocessing Project
 
 ## By Joseph Crouson
 
