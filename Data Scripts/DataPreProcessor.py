@@ -1,5 +1,6 @@
 # %%
 import pandas as pd
+from datetime import datetime
 import os
 
 fileName = 'SCG_5k_Kaldheim_2-21-2021.csv'
@@ -10,10 +11,13 @@ rawCSV.set_index('Rank', inplace=True)
 
 deckSeries = rawCSV['List']
 newDF = pd.DataFrame(
-    columns=['Rank', 'Player', 'Deck', 'Record', 'Card', 'Count', 'Main/Side'])
+    columns=['Rank', 'Player', 'Deck', 'Wins', 'Losses', 'Card', 'Count', 'Main/Side'])
 
 # %%
 for index, deck in enumerate(deckSeries):
+    recordAsDateTime = datetime.strptime(rawCSV.iat[index, 2], '%m/%d/%Y')
+    wins = recordAsDateTime.month
+    losses = recordAsDateTime.day
     deck = deck.split('\n')
     mainOrSide = None
     skip = False
@@ -32,9 +36,8 @@ for index, deck in enumerate(deckSeries):
         elif line == 'Sideboard':
             mainOrSide = 'Sideboard'
             continue
-
-        newRow = {'Rank': index+1, 'Player': rawCSV.iat[index, 0], 'Deck': rawCSV.iat[index, 1],
-                  'Record': rawCSV.iat[index, 2], 'Card': line[2:], 'Count': int(line[:2].strip()), 'Main/Side': mainOrSide}
+        newRow = {'Rank': index+1, 'Player': rawCSV.iat[index, 0], 'Deck': rawCSV.iat[index, 1], 'Wins': wins,
+                  'Losses': losses, 'Card': line[2:], 'Count': int(line[:2].strip()), 'Main/Side': mainOrSide}
         newDF = newDF.append(newRow, ignore_index=True)
 
 # %%
