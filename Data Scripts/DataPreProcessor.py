@@ -39,4 +39,4 @@ for index, deck in enumerate(deckSeries):
 
 # %%
 newDF.to_csv(os.path.dirname(
-    os.path.dirname(__file__)) + f'\\Data Raw\\CORRECTED_{fileName}')
+    os.path.dirname(__file__)) + f'\\Data Raw\\CORRECTED_{fileName}', index=False)
