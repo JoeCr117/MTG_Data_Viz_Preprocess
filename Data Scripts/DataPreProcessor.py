@@ -1,9 +1,8 @@
 # %%
 import pandas as pd
-from datetime import datetime
 import os
 
-fileName = 'SCG_5k_Kaldheim_2-21-2021.csv'
+fileName = 'Record_Corrected_Tournament_Results_With_Deck.csv'
 
 rawCSV = pd.read_csv(os.path.dirname(
     os.path.dirname(__file__)) + f'\\Data Raw\\{fileName}')
@@ -15,9 +14,6 @@ newDF = pd.DataFrame(
 
 # %%
 for index, deck in enumerate(deckSeries):
-    recordAsDateTime = datetime.strptime(rawCSV.iat[index, 2], '%m/%d/%Y')
-    wins = recordAsDateTime.month
-    losses = recordAsDateTime.day
     deck = deck.split('\n')
     mainOrSide = None
     skip = False
@@ -36,10 +32,12 @@ for index, deck in enumerate(deckSeries):
         elif line == 'Sideboard':
             mainOrSide = 'Sideboard'
             continue
-        newRow = {'Rank': index+1, 'Player': rawCSV.iat[index, 0], 'Deck': rawCSV.iat[index, 1], 'Wins': wins,
-                  'Losses': losses, 'Card': line[2:], 'Count': int(line[:2].strip()), 'Main/Side': mainOrSide}
+        newRow = {'Rank': index+1, 'Player': rawCSV.iat[index, 0], 'Deck': rawCSV.iat[index, 1], 'Wins': rawCSV.iat[index, 2],
+                  'Losses': rawCSV.iat[index, 3], 'Card': line[2:], 'Count': int(line[:2].strip()), 'Main/Side': mainOrSide}
         newDF = newDF.append(newRow, ignore_index=True)
 
 # %%
 newDF.to_csv(os.path.dirname(
-    os.path.dirname(__file__)) + f'\\Data Raw\\CORRECTED_{fileName}', index=False)
+    os.path.dirname(__file__)) + f'\\Data Raw\\Deconstructed_{fileName}', index=False)
+
+# %%
