@@ -1,0 +1,7 @@
+Data Preprocess Steps:
+Retrieve data from MTGMelee into an Excel workbook:
+	Columns should be listed => Rank, Player, Deck, Record, List
+	(The actual list of cards needs to manually copied into excel)
+
+Save as CSV
+Use Trifecta to fix the record formatting 
