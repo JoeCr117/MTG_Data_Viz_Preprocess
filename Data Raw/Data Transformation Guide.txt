@@ -4,4 +4,12 @@ Retrieve data from MTGMelee into an Excel workbook:
 	(The actual list of cards needs to manually copied into excel)
 
 Save as CSV
-Use Trifecta to fix the record formatting 
+Use Trifecta to fix the record formatting (split the record into wins and losses columns)
+
+Create two flows in Trifecta:
+	One ouput gives the aggrigated list without the deck
+	The other is with the deck, formatted to clean the deck strings (remove the "")
+
+Take the output with the deck and use DataPreProcessor.py to deconstruct the deck into the cards
+
+Use the output file from the previous step in one final Trifecta flow, cleaning the strings for Tableau Visualizations
